@@ -3,15 +3,20 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import 'dotenv/config'
 import nodemailer from 'nodemailer';
+import helmet from 'helmet';
+
 var app = express();
 var jsonParser = bodyParser.json()
-
 
 var corsOptions = {
     origin: ['http://localhost:3000', 'https://merisaarinen.tech'],
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
-  app.use(cors(corsOptions))
+app.use(cors(corsOptions))
+app.use(helmet())
+app.get('/healthCheck',  async (req, res) => {
+    res.sendStatus(200);
+})
 app.post('/sendEmail', jsonParser , async (req, res) => {
     try {
         var message = req.body.message;
