@@ -35,7 +35,7 @@ app.post('/sendEmail', jsonParser , async (req, res) => {
             from: 'merisrnn@gmail.com',
             to: 'meri.saarinen@protonmail.com',
             subject: `Website message sent at ${date}`,
-            text: `Message sent through merisaarinen.tech website. \nSent by: ${name? name:"No name."} \nMessage: ${message}`
+            text: `Message sent through ${req.hostname}. \nSent by: ${name? name:"No name."} \nMessage: ${message}`
           };
           
           transporter.sendMail(mailOptions, function(error, info){
@@ -54,6 +54,7 @@ let port = process.env.PORT || 80
 if(process.env.ENVIRONMENT === 'development') {
     port = 8000
 }
+
 var server = app.listen(port, function () {
     var host = server.address().address;
     var port = server.address().port;
