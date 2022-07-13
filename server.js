@@ -50,8 +50,11 @@ app.post('/sendEmail', jsonParser , async (req, res) => {
         res.status(400).json({ status: 400, message: `Something went wrong. ${err}` });
     }
 });
-
-var server = app.listen(8000, function () {
+port = process.env.PORT || 80
+if(process.env.ENVIRONMENT === 'development') {
+    port = 8000
+}
+var server = app.listen(port, function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log('Example app listening at http://%s:%s', host, port);
