@@ -31,14 +31,14 @@ app.post("/sendEmail", jsonParser, async (req, res) => {
     var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "merisrnn@gmail.com",
+        user: process.env.FIRST_EMAIL,
         pass: process.env.PASSWORD,
       },
     });
 
     var mailOptions = {
-      from: "merisrnn@gmail.com",
-      to: "meri.saarinen@protonmail.com",
+      from: process.env.FIRST_EMAIL,
+      to: process.env.SECONDARY_EMAIL,
       subject: `Website message sent at ${date}`,
       text: `Message sent through ${req.hostname}. \nSent by: ${
         name ? name : "No name."
